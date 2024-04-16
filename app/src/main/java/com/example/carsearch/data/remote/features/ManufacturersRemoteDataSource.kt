@@ -4,7 +4,7 @@ import com.example.carsearch.data.remote.RemoteDataSource
 import com.example.carsearch.data.repository.paging.PagingManager
 import com.example.carsearch.domain.core.model.CarSummary
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
-import com.example.carsearch.domain.network.core.CarsApiService
+import com.example.carsearch.domain.network.core.features.ManufacturersApiService
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.json.JSONObject
@@ -12,7 +12,7 @@ import retrofit2.Response
 import java.io.IOException
 
 class ManufacturersRemoteDataSource(
-    private val remoteApiImp: CarsApiService,
+    private val remoteApiImp: ManufacturersApiService,
     private val pagingManager: PagingManager
 ) : RemoteDataSource<ManufacturerDto>() {
 

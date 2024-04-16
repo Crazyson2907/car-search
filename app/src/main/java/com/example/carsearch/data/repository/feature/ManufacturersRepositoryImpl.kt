@@ -2,7 +2,7 @@ package com.example.carsearch.data.repository.feature
 
 import com.example.carsearch.data.remote.RemoteDataSource
 import com.example.carsearch.domain.core.base.BaseMapper
-import com.example.carsearch.domain.core.model.Manufacturer
+import com.example.carsearch.domain.core.model.main.Manufacturer
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

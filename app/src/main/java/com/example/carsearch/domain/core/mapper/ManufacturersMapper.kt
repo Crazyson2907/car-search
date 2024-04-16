@@ -1,7 +1,7 @@
 package com.example.carsearch.domain.core.mapper
 
 import com.example.carsearch.domain.core.base.BaseMapper
-import com.example.carsearch.domain.core.model.Manufacturer
+import com.example.carsearch.domain.core.model.main.Manufacturer
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
 
 class ManufacturersMapper : BaseMapper<List<ManufacturerDto>, List<Manufacturer>> {

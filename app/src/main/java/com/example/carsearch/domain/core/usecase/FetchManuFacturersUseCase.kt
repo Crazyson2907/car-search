@@ -1,7 +1,7 @@
 package com.example.carsearch.domain.core.usecase
 
 import com.example.carsearch.data.repository.feature.ManufacturersRepositoryImpl
-import com.example.carsearch.domain.core.model.Manufacturer
+import com.example.carsearch.domain.core.model.main.Manufacturer
 
 /**
  * Use case that manages the retrieval of manufacturers data.

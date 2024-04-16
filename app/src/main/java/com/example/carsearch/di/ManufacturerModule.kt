@@ -6,10 +6,10 @@ import com.example.carsearch.data.repository.feature.ManufacturersRepositoryImpl
 import com.example.carsearch.data.repository.paging.PagingManager
 import com.example.carsearch.domain.core.base.BaseMapper
 import com.example.carsearch.domain.core.mapper.ManufacturersMapper
-import com.example.carsearch.domain.core.model.Manufacturer
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
+import com.example.carsearch.domain.core.model.main.Manufacturer
 import com.example.carsearch.domain.core.usecase.FetchManufacturersUseCase
-import com.example.carsearch.domain.network.core.CarsApiService
+import com.example.carsearch.domain.network.core.features.ManufacturersApiService
 import com.example.carsearch.presentation.manufacturers.ManufacturerViewModel
 import dagger.Module
 import dagger.Provides
@@ -31,12 +31,12 @@ object ManufacturerModule {
 
     @Provides
     @Named("manufacturerRemoteDataSource")
-    fun provideManufacturerRemoteDataSource(api: CarsApiService, pagingManager: PagingManager): RemoteDataSource<ManufacturerDto> =
+    fun provideManufacturerRemoteDataSource(api: ManufacturersApiService, pagingManager: PagingManager): RemoteDataSource<ManufacturerDto> =
         ManufacturersRemoteDataSource(api, pagingManager)
 
     @Provides
-    fun provideManufacturersApi(retrofit: Retrofit): CarsApiService =
-        retrofit.create(CarsApiService::class.java)
+    fun provideManufacturersApi(retrofit: Retrofit): ManufacturersApiService =
+        retrofit.create(ManufacturersApiService::class.java)
 
     @Provides
     fun provideManufacturersRepo(
