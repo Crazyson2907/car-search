@@ -4,8 +4,7 @@ import com.example.carsearch.data.remote.RemoteDataSource
 import com.example.carsearch.data.remote.features.ManufacturersRemoteDataSource
 import com.example.carsearch.data.repository.feature.ManufacturersRepositoryImpl
 import com.example.carsearch.data.repository.paging.PagingManager
-import com.example.carsearch.domain.core.base.BaseMapper
-import com.example.carsearch.domain.core.mapper.ManufacturersMapper
+import com.example.carsearch.domain.core.mapper.ManufacturerMapper
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
 import com.example.carsearch.domain.core.model.main.Manufacturer
 import com.example.carsearch.domain.core.usecase.FetchManufacturersUseCase
@@ -14,12 +13,12 @@ import com.example.carsearch.presentation.manufacturers.ManufacturerViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
 import retrofit2.Retrofit
 import javax.inject.Named
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 object ManufacturerModule {
 
     @Provides
@@ -27,11 +26,15 @@ object ManufacturerModule {
 
     @Provides
     @Named("manufacturerMapper")
-    fun provideManufacturerMapper(): BaseMapper<List<ManufacturerDto>, List<Manufacturer>> = ManufacturersMapper()
+    fun provideManufacturerMapper(): ManufacturerMapper<List<ManufacturerDto>, List<Manufacturer>> =
+        ManufacturerMapper()
 
     @Provides
     @Named("manufacturerRemoteDataSource")
-    fun provideManufacturerRemoteDataSource(api: ManufacturersApiService, pagingManager: PagingManager): RemoteDataSource<ManufacturerDto> =
+    fun provideManufacturerRemoteDataSource(
+        api: ManufacturersApiService,
+        pagingManager: PagingManager
+    ): RemoteDataSource<ManufacturerDto> =
         ManufacturersRemoteDataSource(api, pagingManager)
 
     @Provides
@@ -41,7 +44,7 @@ object ManufacturerModule {
     @Provides
     fun provideManufacturersRepo(
         @Named("manufacturerRemoteDataSource") remoteDataSource: RemoteDataSource<ManufacturerDto>,
-        @Named("manufacturerMapper") mapper: BaseMapper<List<ManufacturerDto>, List<Manufacturer>>
+        @Named("manufacturerMapper") mapper: ManufacturerMapper<List<ManufacturerDto>, List<Manufacturer>>
     ): ManufacturersRepositoryImpl = ManufacturersRepositoryImpl(remoteDataSource, mapper)
 
     @Provides

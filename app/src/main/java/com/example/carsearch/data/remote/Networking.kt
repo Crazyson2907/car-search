@@ -1,5 +1,6 @@
 package com.example.carsearch.data.remote
 
+import android.util.Log
 import com.example.carsearch.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -31,15 +32,13 @@ class Networking {
     fun provideInterceptor(): Interceptor {
         return Interceptor { chain ->
             val original = chain.request()
-            val originalHttpUrl = original.url
-
-            val url = originalHttpUrl.newBuilder()
+            val urlWithApiKey = original.url.newBuilder()
                 .addQueryParameter("wa_key", BuildConfig.API_KEY)
                 .build()
 
-            val reqBuilder = original.newBuilder()
-                .url(url)
-            chain.proceed(reqBuilder.build())
+            val newRequest = original.newBuilder().url(urlWithApiKey).build()
+            Log.d("HttpInterceptor", "Requesting URL: ${newRequest.url}")
+            chain.proceed(newRequest)
         }
     }
 }

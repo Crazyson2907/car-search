@@ -4,7 +4,7 @@ import com.example.carsearch.domain.core.base.BaseMapper
 import com.example.carsearch.domain.core.model.main.Manufacturer
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
 
-class ManufacturersMapper : BaseMapper<List<ManufacturerDto>, List<Manufacturer>> {
+class ManufacturerMapper<T, U> : BaseMapper<List<ManufacturerDto>, List<Manufacturer>> {
 
     /**
      * Maps the input DTOs to domain models.

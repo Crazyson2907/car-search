@@ -4,7 +4,7 @@ import com.example.carsearch.common.BaseTest
 import com.example.carsearch.common.TestData
 import com.example.carsearch.data.remote.RemoteDataSource
 import com.example.carsearch.data.repository.feature.ManufacturersRepositoryImpl
-import com.example.carsearch.domain.core.mapper.ManufacturersMapper
+import com.example.carsearch.domain.core.mapper.ManufacturerMapper
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
@@ -20,14 +20,14 @@ class ManufacturersRepositoryTest : BaseTest() {
     private lateinit var remoteDataSource: RemoteDataSource<ManufacturerDto>
 
     @RelaxedMockK
-    private lateinit var manufacturersMapper: ManufacturersMapper
+    private lateinit var manufacturerMapper: ManufacturerMapper<Any?, Any?>
 
     private lateinit var manufacturersRepo: ManufacturersRepositoryImpl
 
     @Before
     override fun setup() {
         super.setup()
-        manufacturersRepo = ManufacturersRepositoryImpl(remoteDataSource, manufacturersMapper)
+        manufacturersRepo = ManufacturersRepositoryImpl(remoteDataSource, manufacturerMapper)
     }
 
     @Test
@@ -47,12 +47,12 @@ class ManufacturersRepositoryTest : BaseTest() {
         val manufacturersDto = TestData.getManufacturersAsDto()
         val manufacturerDomain = TestData.getManufacturersAsDomainModels()
         coEvery { remoteDataSource.doFetching() } returns Result.success(manufacturersDto)
-        coEvery { manufacturersMapper.map(manufacturersDto) } returns manufacturerDomain
+        coEvery { manufacturerMapper.map(manufacturersDto) } returns manufacturerDomain
 
         val result = manufacturersRepo.fetchManufacturers()
 
         assertThat(result.isSuccess).isTrue()
         assertThat(result.getOrNull()).isEqualTo(manufacturerDomain)
-        coVerify(exactly = 1) { manufacturersMapper.map(manufacturersDto) }
+        coVerify(exactly = 1) { manufacturerMapper.map(manufacturersDto) }
     }
 }

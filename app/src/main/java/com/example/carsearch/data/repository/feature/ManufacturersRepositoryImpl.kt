@@ -2,11 +2,14 @@ package com.example.carsearch.data.repository.feature
 
 import com.example.carsearch.data.remote.RemoteDataSource
 import com.example.carsearch.domain.core.base.BaseMapper
+import com.example.carsearch.domain.core.mapper.ManufacturerMapper
 import com.example.carsearch.domain.core.model.main.Manufacturer
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Repository class for fetching manufacturers from a remote data source and mapping them to domain models.
@@ -14,9 +17,9 @@ import retrofit2.HttpException
  * @param remoteDataSource Provides the data transfer objects for manufacturers.
  * @param dtoToDomainManufacturersMapper Maps DTOs to domain model objects.
  */
-class ManufacturersRepositoryImpl(
+class ManufacturersRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource<ManufacturerDto>,
-    private val dtoToDomainManufacturersMapper: BaseMapper<List<ManufacturerDto>, List<Manufacturer>>
+    @Named("manufacturerMapper")private val dtoToDomainManufacturersMapper: ManufacturerMapper<List<ManufacturerDto>, List<Manufacturer>>
 ) {
 
     /**

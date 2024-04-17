@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/carManufacturersFragment">
 
+    <fragment
+        android:id="@+id/carManufacturersFragment"
+        android:name="com.example.carsearch.presentation.manufacturers.ManufacturersFragment"
+        android:label="CarManufacturersFragment" >
+        <action
+            android:id="@+id/action_carManufacturersFragment_to_modelFragment"
+            app:destination="@id/modelFragment"
+            app:popUpTo="@id/carManufacturersFragment"
+            app:popUpToSaveState="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/modelFragment"
+        android:name="com.example.carsearch.presentation.types.ModelFragment"
+        android:label="fragment_model"
+        tools:layout="@layout/fragment_model" />
 </navigation>

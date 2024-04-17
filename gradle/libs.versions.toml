@@ -7,12 +7,13 @@ material = "1.11.0"
 constraintLayout = "2.1.4"
 legacySupport = "1.0.0"
 lifecycleViewModelKtx = "2.6.1"
-activityKtx = "1.7.2"
-fragmentKtx = "1.6.0"
+activityKtx = "1.8.2"
+fragmentKtx = "1.6.2"
 retrofit = "2.9.0"
 okhttp = "4.9.3"
 moshi = "1.14.0"
 hilt = "2.50"
+hiltNavigation = "1.2.0"
 coroutines = "1.6.4"
 navigation = "2.6.0"
 junit = "4.13.2"
@@ -29,10 +30,12 @@ mockk = "1.12.3"
 truth = "1.1.3"
 mockWebServer = "4.10.0"
 okhttpIdlingResource = "1.0.0"
+scabbard = "0.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
 legacy-support = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupport" }
@@ -47,6 +50,7 @@ converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", 
 moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
@@ -69,9 +73,11 @@ mockkJvm = { module = "io.mockk:mockk-agent-jvm", version.ref = "mockk" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 mockWebServer = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockWebServer" }
 okhttpIdlingResource = { module = "com.jakewharton.espresso:okhttp3-idling-resource", version.ref = "okhttpIdlingResource" }
+scabbard-gradle-plugin = { module = "gradle.plugin.scabbard.scabbard.gradle:scabbard-gradle", version.ref = "scabbard" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 googleDaggerHiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+scabbard = { id = "scabbard.gradle", version.ref = "scabbard" }
