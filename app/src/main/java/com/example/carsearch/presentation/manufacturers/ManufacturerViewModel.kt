@@ -16,34 +16,44 @@ import javax.inject.Inject
 class ManufacturerViewModel @Inject constructor(
     private val fetchManufacturersUseCase: FetchManufacturersUseCase
 ) : ViewModel() {
+    private val _manufacturers = mutableListOf<Manufacturer>()
+    private val _uiState =
+        MutableStateFlow<ManufacturersListUiState>(ManufacturersListUiState.Loading)
+    val uiState: StateFlow<ManufacturersListUiState> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow<ManufacturersListUiState>(ManufacturersListUiState.Loading)
-    val uiState = _uiState.asStateFlow()
+    private val _selectedAuto = MutableStateFlow<Manufacturer?>(null)
+    val selectedAuto: StateFlow<Manufacturer?> = _selectedAuto.asStateFlow()
 
-    private val _selectedAuto: MutableStateFlow<Manufacturer?> =
-        MutableStateFlow(null)
-    val selectedAuto: StateFlow<Manufacturer?> = _selectedAuto
+    private var isLastPage = false
+    private var isLoading = false
 
     init {
         loadManufacturers()
     }
 
-
-
     fun loadManufacturers() {
+        if (isLastPage || isLoading) return
+        isLoading = true
         viewModelScope.launch {
-            _uiState.value = ManufacturersListUiState.Loading
             val result = fetchManufacturersUseCase()
+            isLoading = false
             result.fold(
-                onSuccess = { manufacturers ->
-                    if (manufacturers.isNotEmpty()) {
-                        _uiState.value = ManufacturersListUiState.ListSuccessfullyFetched(manufacturers)
+                onSuccess = { newManufacturers ->
+                    if (newManufacturers.isEmpty()) {
+                        isLastPage = true
+                        if (_manufacturers.isEmpty()) {
+                            _uiState.value =
+                                ManufacturersListUiState.ErrorOccurred("No manufacturers found")
+                        }
                     } else {
-                        _uiState.value = ManufacturersListUiState.ErrorOccurred("No manufacturers found")
+                        _manufacturers.addAll(newManufacturers)
+                        _uiState.value =
+                            ManufacturersListUiState.ListSuccessfullyFetched(_manufacturers.toList())
                     }
                 },
                 onFailure = { error ->
-                    _uiState.value = ManufacturersListUiState.ErrorOccurred(error.message ?: "Unknown error")
+                    _uiState.value =
+                        ManufacturersListUiState.ErrorOccurred(error.message ?: "Unknown error")
                 }
             )
         }

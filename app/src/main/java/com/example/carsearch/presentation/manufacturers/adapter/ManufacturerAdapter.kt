@@ -13,7 +13,7 @@ import com.example.carsearch.domain.core.model.main.Manufacturer
 
 class ManufacturerListAdapter(private val onClick: (Manufacturer) -> Unit) :
     ListAdapter<Manufacturer, ManufacturerListAdapter.ManufacturerViewHolder>(
-        ManufacturerDiffCallback
+        ManufacturerDiffCallback()
     ) {
 
     class ManufacturerViewHolder(itemView: View, val onClick: (Manufacturer) -> Unit) :
@@ -36,23 +36,21 @@ class ManufacturerListAdapter(private val onClick: (Manufacturer) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManufacturerViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         return ManufacturerViewHolder(view, onClick)
     }
 
     override fun onBindViewHolder(holder: ManufacturerViewHolder, position: Int) {
-        val manufacturer = getItem(position)
-        holder.bind(manufacturer)
-    }
-}
-
-object ManufacturerDiffCallback : DiffUtil.ItemCallback<Manufacturer>() {
-    override fun areItemsTheSame(oldItem: Manufacturer, newItem: Manufacturer): Boolean {
-        return oldItem.id == newItem.id
+        holder.bind(getItem(position))
     }
 
-    override fun areContentsTheSame(oldItem: Manufacturer, newItem: Manufacturer): Boolean {
-        return oldItem.name == newItem.name
+    class ManufacturerDiffCallback : DiffUtil.ItemCallback<Manufacturer>() {
+        override fun areItemsTheSame(oldItem: Manufacturer, newItem: Manufacturer): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Manufacturer, newItem: Manufacturer): Boolean {
+            return oldItem == newItem
+        }
     }
 }

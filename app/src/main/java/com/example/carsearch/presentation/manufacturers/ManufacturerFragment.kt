@@ -32,21 +32,8 @@ class ManufacturersFragment : Fragment(R.layout.fragment_manufacturer) {
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val adapter = ManufacturerListAdapter {
+        viewModel.selectAuto(it)
         navigateToManufacturerDetails(it)
-    }
-    private var isLoading = false
-    private val scrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-            val totalItemCount = layoutManager.itemCount
-            val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-
-            if (!isLoading && lastVisibleItemPosition == totalItemCount - 1) {
-                isLoading = true
-                viewModel.loadManufacturers()
-            }
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,36 +48,61 @@ class ManufacturersFragment : Fragment(R.layout.fragment_manufacturer) {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = this@ManufacturersFragment.adapter
-            addOnScrollListener(scrollListener)
+            addOnScrollListener(createScrollListener())
+        }
+    }
+
+    private fun createScrollListener() = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+            val totalItemCount = layoutManager.itemCount
+
+            if (firstVisibleItemPosition == 0) {
+                // Logic to load previous items
+//                viewModel.loadPreviousManufacturers()
+            }
+            if (lastVisibleItemPosition == totalItemCount - 1) {
+                viewModel.loadManufacturers()
+            }
         }
     }
 
     private fun observeViewModelState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.uiState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                .collect { state ->
-                    when (state) {
-                        is ManufacturersListUiState.ErrorOccurred -> {
-                            binding.errorViewGroup.onShow()
-                            binding.loadingViewGroup.onHide()
-                            binding.successfullContentViewGroup.onHide()
-                        }
-
-                        is ManufacturersListUiState.Loading -> {
-                            binding.errorViewGroup.onHide()
-                            binding.loadingViewGroup.onShow()
-                            binding.successfullContentViewGroup.onHide()
-                        }
-
-                        is ManufacturersListUiState.ListSuccessfullyFetched -> {
-                            binding.errorViewGroup.onHide()
-                            binding.loadingViewGroup.onHide()
-                            binding.successfullContentViewGroup.onShow()
-                            adapter.submitList(state.list)
-                        }
-                    }
-                }
+            viewModel.uiState.collect { state ->
+                handleState(state)
+            }
         }
+    }
+
+    private fun handleState(state: ManufacturersListUiState) {
+        when (state) {
+            is ManufacturersListUiState.ErrorOccurred -> showError()
+            is ManufacturersListUiState.Loading -> showLoading()
+            is ManufacturersListUiState.ListSuccessfullyFetched -> showContent(state.list)
+        }
+    }
+
+    private fun showLoading() {
+        binding.loadingViewGroup.onShow()
+        binding.errorViewGroup.onHide()
+        binding.successfullContentViewGroup.onHide()
+    }
+
+    private fun showError() {
+        binding.errorViewGroup.onShow()
+        binding.loadingViewGroup.onHide()
+        binding.successfullContentViewGroup.onHide()
+    }
+
+    private fun showContent(list: List<Manufacturer>) {
+        binding.successfullContentViewGroup.onShow()
+        binding.loadingViewGroup.onHide()
+        binding.errorViewGroup.onHide()
+        adapter.submitList(list.toList())
     }
 
     private fun navigateToManufacturerDetails(manufacturer: Manufacturer) {
@@ -101,6 +113,7 @@ class ManufacturersFragment : Fragment(R.layout.fragment_manufacturer) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.recyclerView.removeOnScrollListener(createScrollListener())
         _binding = null
     }
 }
