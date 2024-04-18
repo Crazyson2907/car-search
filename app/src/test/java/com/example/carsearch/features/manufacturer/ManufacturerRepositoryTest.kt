@@ -6,10 +6,12 @@ import com.example.carsearch.data.remote.RemoteDataSource
 import com.example.carsearch.data.repository.feature.ManufacturersRepositoryImpl
 import com.example.carsearch.domain.core.mapper.ManufacturerMapper
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
-import com.google.common.truth.Truth.assertThat
+import com.example.carsearch.domain.core.model.main.Manufacturer
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -20,7 +22,7 @@ class ManufacturersRepositoryTest : BaseTest() {
     private lateinit var remoteDataSource: RemoteDataSource<ManufacturerDto>
 
     @RelaxedMockK
-    private lateinit var manufacturerMapper: ManufacturerMapper<Any?, Any?>
+    private lateinit var manufacturerMapper: ManufacturerMapper<List<ManufacturerDto>, List<Manufacturer>>
 
     private lateinit var manufacturersRepo: ManufacturersRepositoryImpl
 
@@ -37,8 +39,11 @@ class ManufacturersRepositoryTest : BaseTest() {
 
         val result = manufacturersRepo.fetchManufacturers()
 
-        val actual = isFailureWithMessage(result, errorMessage)
-        assertThat(actual).isTrue()
+        val actual = result.fold(
+            onSuccess = { false },
+            onFailure = { it.message == errorMessage }
+        )
+        assertTrue(actual)
         coVerify(exactly = 1) { remoteDataSource.doFetching() }
     }
 
@@ -51,8 +56,8 @@ class ManufacturersRepositoryTest : BaseTest() {
 
         val result = manufacturersRepo.fetchManufacturers()
 
-        assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrNull()).isEqualTo(manufacturerDomain)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull(), manufacturerDomain)
         coVerify(exactly = 1) { manufacturerMapper.map(manufacturersDto) }
     }
 }

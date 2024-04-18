@@ -2,6 +2,7 @@ package com.example.carsearch.presentation.manufacturers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.carsearch.domain.core.model.main.Manufacturer
 import com.example.carsearch.domain.core.usecase.FetchManufacturersUseCase
 import com.example.carsearch.presentation.manufacturers.state.ManufacturersListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,9 +20,15 @@ class ManufacturerViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<ManufacturersListUiState>(ManufacturersListUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
+    private val _selectedAuto: MutableStateFlow<Manufacturer?> =
+        MutableStateFlow(null)
+    val selectedAuto: StateFlow<Manufacturer?> = _selectedAuto
+
     init {
         loadManufacturers()
     }
+
+
 
     fun loadManufacturers() {
         viewModelScope.launch {
@@ -40,5 +47,9 @@ class ManufacturerViewModel @Inject constructor(
                 }
             )
         }
+    }
+
+    fun selectAuto(auto: Manufacturer) {
+        _selectedAuto.value = auto
     }
 }

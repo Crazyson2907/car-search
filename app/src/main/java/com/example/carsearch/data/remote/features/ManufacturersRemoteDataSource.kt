@@ -1,5 +1,6 @@
 package com.example.carsearch.data.remote.features
 
+import android.util.Log
 import com.example.carsearch.data.remote.RemoteDataSource
 import com.example.carsearch.data.repository.paging.PagingManager
 import com.example.carsearch.domain.core.model.CarSummary
@@ -19,6 +20,7 @@ class ManufacturersRemoteDataSource(
     override suspend fun onFetching(carSummary: CarSummary?): Response<ResponseBody> {
         val nextPage = pagingManager.nextPage()
         val pageSize = pagingManager.pageSize
+        Log.d("Paging", "Fetching page: $nextPage with size: $pageSize")
         return try {
             remoteApiImp.getManufacturers(nextPage, pageSize)
         } catch (e: IOException) {
@@ -36,6 +38,7 @@ class ManufacturersRemoteDataSource(
         val pageCount = jsonObject.getInt("totalPageCount")
         pagingManager.setTotalPages(pageCount)
         pagingManager.updateNextPage()
+        Log.d("Paging", "Total pages set to: $pageCount")
 
         return try {
             super.deserializeJson(jsonString)

@@ -1,5 +1,6 @@
 package com.example.carsearch.features.manufacturer
 
+import android.util.Log
 import com.example.carsearch.common.RemoteDataSourceTest
 import com.example.carsearch.common.TestData
 import com.example.carsearch.data.remote.RemoteDataSource
@@ -7,9 +8,12 @@ import com.example.carsearch.data.remote.features.ManufacturersRemoteDataSource
 import com.example.carsearch.data.repository.paging.PagingManager
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
 import com.example.carsearch.domain.network.core.features.ManufacturersApiService
+import io.mockk.MockKAnnotations
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockk
+import io.mockk.mockkStatic
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody
@@ -27,6 +31,9 @@ class ManufacturersRemoteDataSourceTest : RemoteDataSourceTest<ManufacturerDto>(
     override fun setup() {
         super.setup()
         pagingManager = mockk(relaxed = true)
+        MockKAnnotations.init(this)
+        mockkStatic(Log::class)
+        every { Log.d(any(), any()) } returns 0
     }
 
     @Test

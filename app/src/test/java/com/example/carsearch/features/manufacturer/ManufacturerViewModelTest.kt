@@ -45,7 +45,7 @@ class ManufacturerViewModelTest : BaseTest() {
             ManufacturersListUiState.Loading,
             ManufacturersListUiState.ListSuccessfullyFetched(manufacturers)
         )
-        val actualStates = viewModel.manufacturerListState.take(2).toList()
+        val actualStates = viewModel.uiState.take(2).toList()
         assertThat(actualStates).isEqualTo(expectedStates)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.carsearch.presentation.manufacturers.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class ManufacturerListAdapter(private val onClick: (Manufacturer) -> Unit) :
         fun bind(manufacturer: Manufacturer) {
             currentManufacturer = manufacturer
             nameTextView.text = manufacturer.name
+            itemView.setBackgroundColor(if (position % 2 == 0) Color.DKGRAY else Color.LTGRAY)
         }
     }
 
