@@ -7,7 +7,7 @@ import com.example.carsearch.data.repository.paging.PagingManager
 import com.example.carsearch.domain.core.mapper.ManufacturerMapper
 import com.example.carsearch.domain.core.model.dto.ManufacturerDto
 import com.example.carsearch.domain.core.model.main.Manufacturer
-import com.example.carsearch.domain.core.usecase.FetchManufacturersUseCase
+import com.example.carsearch.domain.network.usecase.FetchManufacturersUseCase
 import com.example.carsearch.domain.network.core.features.ManufacturersApiService
 import com.example.carsearch.presentation.manufacturers.ManufacturerViewModel
 import dagger.Module

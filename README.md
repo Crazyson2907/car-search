@@ -17,11 +17,14 @@
 - Searching Algorithm: Kotlin Collection
 - Screen Rotation: Supported
 
+- Test pyramid:
+  - Small tests : 26
+  - Medium tests: 3
 
 #### Running the app:
 
 Please add the api URL and key in the local.properties gradle file with BASE_URL,API_KEY before
 building the project.
 
-- BAS_URL = http://api-aws-eu-qa-1.auto1-test.com
+- BASE_URL="https://api-aws-eu-qa-1.auto1-test.com/v1/"
 - API_KEY = coding-puzzle-client-449cc9d

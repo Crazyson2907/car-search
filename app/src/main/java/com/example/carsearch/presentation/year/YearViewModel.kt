@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carsearch.domain.core.model.CarSummary
 import com.example.carsearch.domain.core.model.main.Year
-import com.example.carsearch.domain.core.usecase.FetchYearsUseCase
+import com.example.carsearch.domain.network.usecase.FetchYearsUseCase
 import com.example.carsearch.presentation.year.state.YearsListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

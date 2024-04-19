@@ -3,7 +3,7 @@ package com.example.carsearch.presentation.manufacturers
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carsearch.domain.core.model.main.Manufacturer
-import com.example.carsearch.domain.core.usecase.FetchManufacturersUseCase
+import com.example.carsearch.domain.network.usecase.FetchManufacturersUseCase
 import com.example.carsearch.presentation.manufacturers.state.ManufacturersListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

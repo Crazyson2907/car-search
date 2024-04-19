@@ -6,7 +6,7 @@ import com.example.carsearch.data.repository.feature.YearsRepositoryImpl
 import com.example.carsearch.domain.core.mapper.YearMapper
 import com.example.carsearch.domain.core.model.dto.YearDto
 import com.example.carsearch.domain.core.model.main.Year
-import com.example.carsearch.domain.core.usecase.FetchYearsUseCase
+import com.example.carsearch.domain.network.usecase.FetchYearsUseCase
 import com.example.carsearch.domain.network.core.features.YearApiService
 import dagger.Module
 import dagger.Provides

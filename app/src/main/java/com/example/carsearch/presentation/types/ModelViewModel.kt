@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carsearch.domain.core.model.CarSummary
 import com.example.carsearch.domain.core.model.main.Model
-import com.example.carsearch.domain.core.usecase.FetchModelsUseCase
+import com.example.carsearch.domain.network.usecase.FetchModelsUseCase
 import com.example.carsearch.presentation.types.state.ModelsListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

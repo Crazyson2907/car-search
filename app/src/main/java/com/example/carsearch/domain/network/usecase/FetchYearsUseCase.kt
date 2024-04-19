@@ -1,4 +1,4 @@
-package com.example.carsearch.domain.core.usecase
+package com.example.carsearch.domain.network.usecase
 
 import com.example.carsearch.data.repository.feature.YearsRepositoryImpl
 import com.example.carsearch.domain.core.model.CarSummary

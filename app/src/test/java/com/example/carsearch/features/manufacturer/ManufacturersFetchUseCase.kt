@@ -2,7 +2,7 @@ package com.example.carsearch.features.manufacturer
 
 import com.example.carsearch.common.BaseTest
 import com.example.carsearch.data.repository.feature.ManufacturersRepositoryImpl
-import com.example.carsearch.domain.core.usecase.FetchManufacturersUseCase
+import com.example.carsearch.domain.network.usecase.FetchManufacturersUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK

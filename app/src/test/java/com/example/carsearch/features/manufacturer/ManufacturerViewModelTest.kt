@@ -3,7 +3,7 @@ package com.example.carsearch.features.manufacturer
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.carsearch.common.BaseTest
 import com.example.carsearch.common.TestData
-import com.example.carsearch.domain.core.usecase.FetchManufacturersUseCase
+import com.example.carsearch.domain.network.usecase.FetchManufacturersUseCase
 import com.example.carsearch.presentation.manufacturers.ManufacturerViewModel
 import com.example.carsearch.presentation.manufacturers.state.ManufacturersListUiState
 import com.google.common.truth.Truth.assertThat
