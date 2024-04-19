@@ -15,7 +15,6 @@ import com.example.carsearch.domain.core.model.CarSummary
 import com.example.carsearch.domain.core.model.main.Model
 import com.example.carsearch.presentation.types.adapter.ModelAdapter
 import com.example.carsearch.presentation.types.state.ModelsListUiState
-import com.example.carsearch.utils.displayName
 import com.example.carsearch.utils.displaySelection
 import com.example.carsearch.utils.onHide
 import com.example.carsearch.utils.onShow
