@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="button,textView" />
+        app:constraint_referenced_ids="back,textView" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
@@ -47,10 +47,10 @@
         android:layout_marginTop="@dimen/base_large_margin"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Refresh"
+        android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
@@ -60,7 +60,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="An error occured, please refresh"
+        android:text="@string/no_data_models"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

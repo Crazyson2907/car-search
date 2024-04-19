@@ -49,7 +49,7 @@
         <action
             android:id="@+id/action_summaryFragment_to_manufacturersFragment"
             app:destination="@id/manufacturersFragment"
-            app:popUpTo="@id/manufacturersFragment"
+            app:popUpTo="@id/yearFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

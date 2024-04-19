@@ -18,12 +18,14 @@ class ManufacturersRemoteDataSource(
 ) : RemoteDataSource<ManufacturerDto>() {
 
     override suspend fun onFetching(carSummary: CarSummary?): Response<ResponseBody> {
-        val nextPage = pagingManager.nextPage()
-        val pageSize = pagingManager.pageSize
-        Log.d("Paging", "Fetching page: $nextPage with size: $pageSize")
-
         return try {
+            val nextPage = pagingManager.nextPage()
+            val pageSize = pagingManager.pageSize
+            Log.d("Paging", "Fetching page: $nextPage with size: $pageSize")
             remoteApiImp.getManufacturers(nextPage, pageSize)
+        } catch (e: IllegalStateException) {
+            Log.d("Paging", "Stop fetching more data: ${e.message}")
+            Response.success(204, "".toResponseBody())
         } catch (e: IOException) {
             Response.error(408, "Network error occurred".toResponseBody(null))
         }

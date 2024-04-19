@@ -37,10 +37,15 @@ class ModelFragment : Fragment(R.layout.fragment_model) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentModelBinding.bind(view)
+        initUi()
+    }
+
+    private fun initUi() {
         setupRecyclerView()
         setupSearchView()
         viewModel.loadModels(args.carSummary)
         observeViewModelState()
+        backNavigation()
     }
 
     private fun observeViewModelState() {
@@ -106,8 +111,15 @@ class ModelFragment : Fragment(R.layout.fragment_model) {
         val args = args.carSummary
         val action = ModelFragmentDirections
             .actionModelFragmentToCarYearFragment(
-                CarSummary(manufacturer = args.manufacturer, model = model))
+                CarSummary(manufacturer = args.manufacturer, model = model)
+            )
         findNavController().navigate(action)
+    }
+
+    private fun backNavigation() {
+        binding.back.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroyView() {

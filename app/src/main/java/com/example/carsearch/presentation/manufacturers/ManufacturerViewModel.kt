@@ -21,9 +21,6 @@ class ManufacturerViewModel @Inject constructor(
         MutableStateFlow<ManufacturersListUiState>(ManufacturersListUiState.Loading)
     val uiState: StateFlow<ManufacturersListUiState> = _uiState.asStateFlow()
 
-    private val _selectedAuto = MutableStateFlow<Manufacturer?>(null)
-    val selectedAuto: StateFlow<Manufacturer?> = _selectedAuto.asStateFlow()
-
     var isLastPage = false
     private var isLoading = false
 
@@ -40,22 +37,31 @@ class ManufacturerViewModel @Inject constructor(
             result.fold(
                 onSuccess = { newManufacturers ->
                     if (newManufacturers.isEmpty()) {
-                        isLastPage = true
-                        _uiState.value = ManufacturersListUiState.ListSuccessfullyFetched(_manufacturers.toList())
+                        if (_manufacturers.isNotEmpty()) {
+                            // If we already have data, just mark that we reached the last page
+                            // and don't send any state updates to the UI
+                            isLastPage = true
+                        } else {
+                            // If there's no data at all, it means we are at the start and there's nothing to show
+                            _uiState.value =
+                                ManufacturersListUiState.ErrorOccurred("No manufacturers found")
+                        }
                     } else {
                         _manufacturers.addAll(newManufacturers)
-                        _uiState.value = ManufacturersListUiState.ListSuccessfullyFetched(_manufacturers.toList())
+                        _uiState.value =
+                            ManufacturersListUiState.ListSuccessfullyFetched(_manufacturers.toList())
                     }
                 },
                 onFailure = { error ->
-                    _uiState.value =
-                        ManufacturersListUiState.ErrorOccurred(error.message ?: "Unknown error")
+                    // Only update the UI state if an error occurs and we have not any manufacturers loaded
+                    if (_manufacturers.isEmpty()) {
+                        _uiState.value =
+                            ManufacturersListUiState.ErrorOccurred(error.message ?: "Unknown error")
+                    }
+                    // If we already have manufacturers loaded, we might choose not to update the UI state,
+                    // depending on how you want to handle this case.
                 }
             )
         }
-    }
-
-    fun selectAuto(auto: Manufacturer) {
-        _selectedAuto.value = auto
     }
 }

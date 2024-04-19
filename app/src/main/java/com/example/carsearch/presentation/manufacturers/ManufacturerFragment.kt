@@ -29,10 +29,8 @@ class ManufacturersFragment : Fragment(R.layout.fragment_manufacturer) {
     private val binding get() = _binding!!
 
     private val viewModel: ManufacturerViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val adapter = ManufacturerListAdapter {
-        viewModel.selectAuto(it)
         navigateToManufacturerDetails(it)
     }
 
@@ -90,7 +88,6 @@ class ManufacturersFragment : Fragment(R.layout.fragment_manufacturer) {
 
     private fun showError() {
         binding.errorViewGroup.onShow()
-        binding.button.setOnClickListener { viewModel.loadManufacturers() }
         binding.loadingViewGroup.onHide()
         binding.successfullContentViewGroup.onHide()
     }

@@ -6,26 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".presentation.summary.SummaryFragment">
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/contenGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="carTypeTextView,manufacturerTextView" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/loadingGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="progressBar" />
-
     <TextView
         android:id="@+id/manufacturerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/base_middle_margin"
         android:layout_marginEnd="@dimen/base_middle_margin"
-        android:text="TextView"
+        android:text="BMW"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,11 +25,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_middle_margin"
+        android:layout_marginStart="@dimen/base_middle_margin"
         android:layout_marginEnd="@dimen/base_middle_margin"
-        android:text="TextView"
+        android:text="M5 competition"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/manufacturerTextView" />
 
@@ -51,22 +38,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_middle_margin"
+        android:layout_marginStart="@dimen/base_middle_margin"
         android:layout_marginEnd="@dimen/base_middle_margin"
-        android:text="TextView"
+        android:text="2020"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carTypeTextView"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/carTypeTextView" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/restart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/yearTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
