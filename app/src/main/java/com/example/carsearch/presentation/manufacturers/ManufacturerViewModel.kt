@@ -24,7 +24,7 @@ class ManufacturerViewModel @Inject constructor(
     private val _selectedAuto = MutableStateFlow<Manufacturer?>(null)
     val selectedAuto: StateFlow<Manufacturer?> = _selectedAuto.asStateFlow()
 
-    private var isLastPage = false
+    var isLastPage = false
     private var isLoading = false
 
     init {
@@ -41,14 +41,10 @@ class ManufacturerViewModel @Inject constructor(
                 onSuccess = { newManufacturers ->
                     if (newManufacturers.isEmpty()) {
                         isLastPage = true
-                        if (_manufacturers.isEmpty()) {
-                            _uiState.value =
-                                ManufacturersListUiState.ErrorOccurred("No manufacturers found")
-                        }
+                        _uiState.value = ManufacturersListUiState.ListSuccessfullyFetched(_manufacturers.toList())
                     } else {
                         _manufacturers.addAll(newManufacturers)
-                        _uiState.value =
-                            ManufacturersListUiState.ListSuccessfullyFetched(_manufacturers.toList())
+                        _uiState.value = ManufacturersListUiState.ListSuccessfullyFetched(_manufacturers.toList())
                     }
                 },
                 onFailure = { error ->

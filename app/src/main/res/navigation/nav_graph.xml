@@ -3,21 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/carManufacturersFragment">
+    app:startDestination="@id/manufacturersFragment">
 
     <fragment
-        android:id="@+id/carManufacturersFragment"
+        android:id="@+id/manufacturersFragment"
         android:name="com.example.carsearch.presentation.manufacturers.ManufacturersFragment"
-        android:label="CarManufacturersFragment" >
+        android:label="fragment_manufacturers"
+        tools:layout="@layout/fragment_manufacturer" >
         <action
             android:id="@+id/action_carManufacturersFragment_to_modelFragment"
             app:destination="@id/modelFragment"
-            app:popUpTo="@id/carManufacturersFragment"
+            app:popUpTo="@id/manufacturersFragment"
             app:popUpToSaveState="true"/>
     </fragment>
     <fragment
         android:id="@+id/modelFragment"
         android:name="com.example.carsearch.presentation.types.ModelFragment"
         android:label="fragment_model"
-        tools:layout="@layout/fragment_model" />
+        tools:layout="@layout/fragment_model" >
+        <argument
+            android:name="carSummary"
+            app:argType="com.example.carsearch.domain.core.model.CarSummary" />
+        <action
+            android:id="@+id/action_modelFragment_to_carYearFragment"
+            app:destination="@id/yearFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/yearFragment"
+        android:name="com.example.carsearch.presentation.year.YearFragment"
+        android:label="CarYearFragment" >
+        <argument
+            android:name="carSummary"
+            app:argType="com.example.carsearch.domain.core.model.CarSummary" />
+        <action
+            android:id="@+id/action_carYearFragment_to_summaryFragment"
+            app:destination="@id/summaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/summaryFragment"
+        android:name="com.example.carsearch.presentation.summary.SummaryFragment"
+        android:label="SummaryFragment" >
+        <argument
+            android:name="carSummary"
+            app:argType="com.example.carsearch.domain.core.model.CarSummary" />
+        <action
+            android:id="@+id/action_summaryFragment_to_manufacturersFragment"
+            app:destination="@id/manufacturersFragment"
+            app:popUpTo="@id/manufacturersFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

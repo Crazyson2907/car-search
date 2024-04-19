@@ -21,10 +21,10 @@ class ManufacturersRemoteDataSource(
         val nextPage = pagingManager.nextPage()
         val pageSize = pagingManager.pageSize
         Log.d("Paging", "Fetching page: $nextPage with size: $pageSize")
+
         return try {
             remoteApiImp.getManufacturers(nextPage, pageSize)
         } catch (e: IOException) {
-            // Handle network errors specifically, potentially logging them or modifying the response
             Response.error(408, "Network error occurred".toResponseBody(null))
         }
     }
@@ -40,11 +40,6 @@ class ManufacturersRemoteDataSource(
         pagingManager.updateNextPage()
         Log.d("Paging", "Total pages set to: $pageCount")
 
-        return try {
-            super.deserializeJson(jsonString)
-        } catch (e: Exception) {
-            // Handle JSON parsing errors or any other exceptions raised during deserialization
-            emptyList()
-        }
+        return super.deserializeJson(jsonString)
     }
 }
