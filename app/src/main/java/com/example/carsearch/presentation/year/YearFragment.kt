@@ -14,6 +14,7 @@ import com.example.carsearch.domain.core.model.CarSummary
 import com.example.carsearch.domain.core.model.main.Year
 import com.example.carsearch.presentation.year.adapter.YearsAdapter
 import com.example.carsearch.presentation.year.state.YearsListUiState
+import com.example.carsearch.utils.displaySelection
 import com.example.carsearch.utils.onHide
 import com.example.carsearch.utils.onShow
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,6 +81,7 @@ class YearFragment : Fragment(R.layout.fragment_year) {
         binding.successfullContentViewGroup.onShow()
         binding.loadingViewGroup.onHide()
         binding.errorViewGroup.onHide()
+        binding.selectionTextView.text = args.carSummary.displaySelection()
         adapter.submitList(list)
     }
 

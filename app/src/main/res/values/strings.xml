@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">CarSearch</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_data_models">There are no available models</string>
     <string name="back">Back</string>
     <string name="restart">Restart</string>
+    <string name="error_occured">An error occured, please refresh</string>
+    <string name="refresh">Refresh</string>
 </resources>

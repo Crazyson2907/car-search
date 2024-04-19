@@ -15,6 +15,8 @@ import com.example.carsearch.domain.core.model.CarSummary
 import com.example.carsearch.domain.core.model.main.Model
 import com.example.carsearch.presentation.types.adapter.ModelAdapter
 import com.example.carsearch.presentation.types.state.ModelsListUiState
+import com.example.carsearch.utils.displayName
+import com.example.carsearch.utils.displaySelection
 import com.example.carsearch.utils.onHide
 import com.example.carsearch.utils.onShow
 import dagger.hilt.android.AndroidEntryPoint
@@ -104,6 +106,7 @@ class ModelFragment : Fragment(R.layout.fragment_model) {
         binding.successfullContentViewGroup.onShow()
         binding.loadingViewGroup.onHide()
         binding.errorViewGroup.onHide()
+        binding.manufacturerTextView.text = args.carSummary.manufacturer.displaySelection()
         adapter.submitList(list)
     }
 
