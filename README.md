@@ -12,7 +12,7 @@
   of dependencies, improving the modularity and testability of the application.
 
 - UI Binding: Android view binding
-- Guidelines: DRY, KISS, SOlID
+- Guidelines: DRY, KISS, SOLID
 - Pattern: Repository, Clean Architecture, Singleton
 - Searching Algorithm: Kotlin Collection
 - Screen Rotation: Supported
