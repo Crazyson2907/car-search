@@ -26,5 +26,5 @@
 Please add the api URL and key in the local.properties gradle file with BASE_URL,API_KEY before
 building the project.
 
-- BASE_URL="https://api-aws-eu-qa-1.auto1-test.com/v1/"
+- BASE_URL="https://api-aws-eu-qa-1.auto1-test.com/v1/" //This was a one time purpose url, so no confidential data leaked
 - API_KEY = coding-puzzle-client-449cc9d
